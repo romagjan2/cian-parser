@@ -70,7 +70,7 @@ def _sleep(settings: Settings) -> None:
 def load_configs(page: Page, url: str, settings: Settings) -> dict[str, Any]:
     page.goto(url, wait_until="domcontentloaded", timeout=90_000)
     wait_if_blocked(page)
-    page.wait_for_timeout(800)
+    page.wait_for_timeout(3800)
     configs = page.evaluate(EXTRACT_CONFIG_JS)
     if not configs:
         configs = extract_cian_config(page.content())
@@ -119,9 +119,9 @@ def collect_offer_urls_from_query(page: Page, query: str, settings: Settings) ->
     wait_if_blocked(page)
     search = page.get_by_test_id("desktop-search-input")
     search.fill(query)
-    page.wait_for_timeout(400)
+    page.wait_for_timeout(800)
     page.get_by_test_id("desktop-search-button").click()
-    page.wait_for_timeout(1500)
+    page.wait_for_timeout(3500)
     return collect_offer_urls_from_search(page, page.url, settings)
 
 
