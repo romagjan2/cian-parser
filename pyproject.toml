@@ -1,0 +1,28 @@
+[project]
+name = "cian-parser"
+version = "0.1.0"
+description = "Parse CIAN listings and store full property data in PostgreSQL"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "psycopg[binary]>=3.2,<4",
+    "playwright>=1.48",
+    "python-dotenv>=1.0,<2",
+    "tomli>=2.0,<3; python_version < '3.11'",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+cian-parser = "cian_parser.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

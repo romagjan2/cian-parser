@@ -1,0 +1,17 @@
+services:
+  db:
+    image: postgres:16-alpine
+    env_file:
+      - ${CIAN_PARSER_ENV_FILE:-${HOME}/.config/cian-parser/.env}
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - cian_pg:/var/lib/postgresql/data
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+
+volumes:
+  cian_pg:
